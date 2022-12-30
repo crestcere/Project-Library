@@ -37,15 +37,66 @@ console.log("myLibrary", myLibrary);
 displayBook();
 
 //  TODO 4. Add New Book button
-//  4.1 Do not forget to use addBookToLibrary function to add books to the array.
+// 4.1 Do not forget to use addBookToLibrary function to add books to the array.
 const newButton = document.querySelector(".new");
 
 // 4.2 It will bring up users to input to book values.
-
 // 4.3 Remove New Button when users input available.
 newButton.addEventListener("click", () => {
     console.log("New Book button is clicked");
-    newButton.outerHTML = "<div class='new'>Button Clicked</div>";
+    newButton.outerHTML = // 4.3.1
+        "<form class=\"form\">" + // 4.2.*
+            "<label>Book Title: </label>" +
+            "<input class=\"title\" name=\"title\" type='text'><br>" +
+            "<label>Book Author: </label>" +
+            "<input class='author' name=\"author\" type='text'><br>" +
+            "<label>Book Pages: </label>" +
+            "<input class='pages' name=\"pages\" type='number'><br>" +
+            "<label>Book Read? </label>" +
+            "<input class='read' name=\"read\" type='checkbox'><br>" +
+            "<input class ='submit' type='button' value='Submit'><br>" +
+        "</form>";
 });
 
-// 4.3 Save users input to the library.
+// 4.4 Restore New Button when user click submit button
+// if (document.querySelector(".submit") != null) {
+//     document.querySelector(".submit").addEventListener("click", () => {
+//         event.preventDefault();
+//         console.log(document.querySelector(".title"));
+//         console.log(document.querySelector(".author"));
+//         console.log("Inside the query selector");
+//         // addBookToLibrary()
+//         document.querySelector(".form").outerHTML = "<button type=\"button\" class=\"new\">New Book</button>"; // 4.4.1
+//     });
+// }
+if (document.querySelector(".submit") != null) {
+    document.querySelector(".submit").addEventListener("click", () => {
+        console.log("submit button clicked");
+        document.querySelector(".form").outerHTML = "<button type=\"submit\" class=\"new\">New Book</button>"; // 4.4.1
+    });
+}
+
+if (document.querySelector(".submit") != null) {
+    const submit = document.querySelector(".submit");
+    submit.addEventListener("click", () => {
+        console.log("submit button is clicked");
+    })
+}
+
+// const submit = document.querySelector(".submit");
+// submit.addEventListener("click", () => {
+//     console.log("submit button is clicked");
+// })
+// document.querySelector(".submit").addEventListener("click", () => {
+//     console.log("submit button clicked");
+//     document.querySelector(".form").outerHTML = "<button type=\"submit\" class=\"new\">New Book</button>"; // 4.4.1
+// });
+
+// 4.5 Save users input to the library.
+// document.querySelector(".submit").addEventListener("click", () => {
+//     console.log(document.querySelector(".title"));
+//     console.log(document.querySelector(".author"));
+//     // addBookToLibrary()
+//     event.preventDefault();
+//     document.querySelector(".form").outerHTML = "<button type=\"submit\" class=\"new\">New Book</button>"; // 4.4.1
+// })
