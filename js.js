@@ -22,14 +22,30 @@ addBookToLibrary(asd1);
 addBookToLibrary(asd2);
 
 function displayBook() {
-    const library = document.querySelector(".library");
-    library.innerHTML = "<h1>Injected</h1>";
+    // 3. Making an array to store inner html codes and export to real innerHtml. With this way, I can manage to store the content of the object.
+    let view = []; // 3.1
+    view.push("<table><tr><th>Title</th><th>Author</th><th>Pages</th><th>Read</th></tr>"); // 3.2.1
+    for (let i of myLibrary) {
+        view.push(`<tr><td>${i.title}</td><td>${i.author}</td><td>${i.pages}</td><td>${i.read}</td></tr>`); // 3.2.2
+    }
+    view.push("</table>"); // 3.2.3
+    const library = document.querySelector(".library"); // 3.3
+    library.innerHTML = view.join(""); // 3.4
 }
 
 console.log("myLibrary", myLibrary);
 displayBook();
 
-// Function loops through array and display books
+//  TODO 4. Add New Book button
+//  4.1 Do not forget to use addBookToLibrary function to add books to the array.
+const newButton = document.querySelector(".new");
 
+// 4.2 It will bring up users to input to book values.
 
-// Add New Book button
+// 4.3 Remove New Button when users input available.
+newButton.addEventListener("click", () => {
+    console.log("New Book button is clicked");
+    newButton.outerHTML = "<div class='new'>Button Clicked</div>";
+});
+
+// 4.3 Save users input to the library.
