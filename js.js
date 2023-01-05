@@ -7,11 +7,11 @@ function Book(title, author, pages, read) {
     switch (read) {
         case true:
             read = "yes";
-            console.log("yes called", read);
+            // console.log("yes called", read);
             break;
         case false:
             read = "no";
-            console.log("no called", read);
+            // console.log("no called", read);
             break;
         default:
             this.read = read;
@@ -40,6 +40,7 @@ function displayBook() {
             "<th>Author</th>" +
             "<th>Pages</th>" +
             "<th>Read</th>" +
+            "<th>Delete</th>" +
         "</tr>"
     ); // 3.2.1
     for (let i of myLibrary) {
@@ -49,22 +50,22 @@ function displayBook() {
                 <td>${i.author}</td>
                 <td>${i.pages}</td>
                 <td>${i.read}</td>
+                <td><button type="button" onclick="deleteBook(${myLibrary.indexOf(i)})">Delete</button></td>
             </tr>
         `); // 3.2.2
+            // 5.1 - Create delete button and assign delete function
     }
     view.push("</table>"); // 3.2.3
     const library = document.querySelector(".library"); // 3.3
     library.innerHTML = view.join(""); // 3.4
 }
 
-console.log("myLibrary", myLibrary);
+// console.log("myLibrary", myLibrary);
 displayBook();
 
-// ---
-
-//  TODO 4. Add New Book button
-
+// 4. Add New Book button
 // 4.1 Create New Book button and input boxes
+// 4.1.1 Remove New Button when users input available.
 function createInput() { // Assign function to ".new" button class.
     document.querySelector(".new").outerHTML =
         "<form class=\"form\">" +
@@ -81,8 +82,9 @@ function createInput() { // Assign function to ".new" button class.
     ;
 }
 
-// Get data and reset input form to previous state
-
+// 4.2.0 Get data and reset input form to previous state
+// 4.2.1 use addBookToLibrary function to add books to the array.
+// 4.2.2 Restore New Button when user clicks submits button
 function clickSubmit() {
     event.preventDefault();
     // console.log("title: ", document.querySelector("#title").value);
@@ -90,16 +92,19 @@ function clickSubmit() {
     // console.log("pages: ", document.querySelector("#pages").value);
     // console.log("read: ", document.querySelector("#read").checked);
     let newBook = new Book(document.querySelector("#title").value, document.querySelector("#author").value,
-        document.querySelector("#pages").value, document.querySelector("#read").checked);
-    addBookToLibrary(newBook);
-
-    // Reset form
-    document.querySelector(".form").outerHTML = "<button type=\"submit\" class=\"new\" onclick='createInput()'>New Book</button>";
+        document.querySelector("#pages").value, document.querySelector("#read").checked) // 4.2.0
+    addBookToLibrary(newBook); // 4.2.1
+    document.querySelector(".form").outerHTML = "<button type=\"submit\" class=\"new\" onclick='createInput()'>New Book</button>"; // 4.2.2
     displayBook();
 }
 
-// 4.1 Do not forget to use addBookToLibrary function to add books to the array.
-// 4.2 It will bring up users to input to book values.
-// 4.3 Remove New Button when users input available.
-// 4.4 Restore New Button when user clicks submits button
-// 4.5 Save users' input to the library.
+// 5. Add a button on each book’s display to remove the book from the library.
+// 5.2 Delete function
+function deleteBook(item) {
+    myLibrary.splice(item, 1);
+    displayBook();
+}
+
+// TODO 6. Add a button on each book’s display to change its read status.
+
+// TODO Use prototype and object to unify functions and book library.
