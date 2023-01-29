@@ -4,29 +4,17 @@ function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    switch (read) {
-        case true:
-            read = "yes";
-            // console.log("yes called", read);
-            break;
-        case false:
-            read = "no";
-            // console.log("no called", read);
-            break;
-        default:
-            this.read = read;
-    }
+    this.read = read;
     return {title, author, pages, read};
 }
 
 function addBookToLibrary(Book) {
     myLibrary.push(Book);
-    // console.log("Function called");
 }
 
-const asd = new Book("title", "author", 123, "yes");
-const asd1 = new Book("title", "author", 123, "yes");
-const asd2 = new Book("title", "author", 123, "no");
+const asd = new Book("title", "author", 123, true);
+const asd1 = new Book("title", "author", 123, false);
+const asd2 = new Book("title", "author", 123, true);
 addBookToLibrary(asd);
 addBookToLibrary(asd1);
 addBookToLibrary(asd2);
@@ -42,18 +30,28 @@ function displayBook() {
             "<th>Read</th>" +
             "<th>Delete</th>" +
         "</tr>"
-    ); // 3.2.1
+    );
     for (let i of myLibrary) {
-        view.push(`
+        console.log(i);
+        i.read ?
+            // 6.1 Print as checked if read value is true
+            view.push(`
             <tr>
                 <td>${i.title}</td>
                 <td>${i.author}</td>
                 <td>${i.pages}</td>
-                <td>${i.read}</td>
+                <td><input type="checkbox" checked onchange="changeRead(${myLibrary.indexOf(i)})"></td>
                 <td><button type="button" onclick="deleteBook(${myLibrary.indexOf(i)})">Delete</button></td>
-            </tr>
-        `); // 3.2.2
-            // 5.1 - Create delete button and assign delete function
+            `) :
+            view.push(`
+            <tr>
+                <td>${i.title}</td>
+                <td>${i.author}</td>
+                <td>${i.pages}</td>
+                <td><input type="checkbox" onchange="changeRead(${myLibrary.indexOf(i)})"></td>
+                <td><button type="button" onclick="deleteBook(${myLibrary.indexOf(i)})">Delete</button></td>
+            `); // 3.2.2
+                // 5.1 - Create delete button and assign delete function
     }
     view.push("</table>"); // 3.2.3
     const library = document.querySelector(".library"); // 3.3
@@ -105,6 +103,25 @@ function deleteBook(item) {
     displayBook();
 }
 
-// TODO 6. Add a button on each book’s display to change its read status.
+// 6. Add a button on each book’s display to change its read status.
+// 6.1 Print as checked if read value is true
+// 6.2 Function to invoke read status
+function changeRead(item) { // 6.2
+    switch (myLibrary[item].read) {
+        case true: {
+            myLibrary[item].read = false;
+            break;
+        }
+        case false: {
+            myLibrary[item].read = true;
+            break;
+        }
+        default: {
+            myLibrary[item].read = true;
+            break;
+        }
+    }
+    displayBook();
+}
 
 // TODO Use prototype and object to unify functions and book library.
