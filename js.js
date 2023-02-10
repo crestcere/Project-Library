@@ -1,27 +1,25 @@
 const myLibrary = [];
-
-const Book = function (title, author, pages, read) {
+// const Book = function (title, author, pages, read) {
+function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.read = read;
-  return {
-    title, author, pages, read,
-  };
-};
-
-// TODO Makes this to object prototype
-// eslint-disable-next-line no-shadow
-function addBookToLibrary(Book) {
-  myLibrary.push(Book);
 }
 
-const asd = new Book('title', 'author', 123, true);
-const asd1 = new Book('title', 'author', 123, false);
-const asd2 = new Book('title', 'author', 123, true);
-addBookToLibrary(asd);
-addBookToLibrary(asd1);
-addBookToLibrary(asd2);
+Book.prototype.addLibrary = function (myLibrary) {
+  myLibrary.push({
+    title: this.title, author: this.author, pages: this.pages, read: this.read,
+  });
+};
+
+const asd = new Book('asd', 'ab1', 123, true);
+const asd1 = new Book('asd1', 'ab2', 123, false);
+const asd2 = new Book('asd2', 'ab3', 123, true);
+console.log('asd', asd);
+asd.addLibrary(myLibrary);
+asd1.addLibrary(myLibrary);
+asd2.addLibrary(myLibrary);
 
 function displayBook() {
   // 3. Making an array to store inner html codes and export to real innerHtml.
@@ -85,7 +83,7 @@ function createInput() {
 }
 
 // 4.2.0 Get data and reset input form to previous state
-// 4.2.1 use addBookToLibrary function to add books to the array.
+// 4.2.1 use addLibrary method to add books to the array.
 // 4.2.2 Restore New Button when user clicks submits button
 // eslint-disable-next-line no-unused-vars
 function clickSubmit() {
@@ -97,7 +95,7 @@ function clickSubmit() {
     document.querySelector('#pages').value,
     document.querySelector('#read').checked,
   ); // 4.2.0
-  addBookToLibrary(newBook); // 4.2.1
+  newBook.addLibrary(myLibrary); // 4.2.1
   document.querySelector('.form').outerHTML = '<button type="submit" class="new" onclick=\'createInput()\'>New Book</button>'; // 4.2.2
   displayBook();
 }
